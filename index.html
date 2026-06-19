@@ -4,131 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amazing Thailand - แกลเลอรีสถานที่ท่องเที่ยวไทย</title>
-    <!-- เรียกใช้ Tailwind CSS ผ่าน CDN เพื่อดีไซน์ที่ทันสมัยและรองรับมือถือ -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- นำเข้าฟอนต์ Kanit สไตล์โมเดิร์นอ่านง่าย -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
+        body { font-family: 'Kanit', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
-    <!-- ส่วนหัวเว็บไซต์ (Hero Section) -->
-    <header class="bg-cover bg-center h-[60vh] flex flex-col justify-center items-center text-center px-4 relative" 
-            style="background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1600&q=80');">
-        <div class="animate-fade-in">
-            <span class="bg-yellow-400 text-gray-900 text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 inline-block shadow-md">Welcome to Thailand</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 drop-shadow-md">Amazing Thailand Gallery</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto drop-shadow-sm font-light">สัมผัสความมหัศจรรย์ของเมืองไทย ผ่านภาพถ่ายสถานที่ท่องเที่ยวที่งดงามและโด่งดังระดับโลก</p>
-        </div>
+    <header class="bg-cover bg-center h-[45vh] flex flex-col justify-center items-center text-center px-4 relative bg-gray-800" 
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1600&q=80');">
+        <span class="bg-yellow-400 text-gray-900 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block shadow-md">Thailand Travel</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-2 drop-shadow-md">Amazing Thailand Gallery</h1>
+        <p class="text-base md:text-lg text-gray-200 max-w-xl mx-auto font-light">คอลเลกชันภาพถ่ายและสถานที่ท่องเที่ยวที่น่าประทับใจในประเทศไทย</p>
     </header>
 
-    <!-- ส่วนเนื้อหาหลัก / แกลเลอรีภาพสถานที่ดัง -->
-    <main class="max-w-7xl mx-auto px-4 py-16">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">6 สถานที่ท่องเที่ยวปักหมุดยอดฮิต</h2>
-            <p class="text-gray-500 max-w-md mx-auto">รวมพิกัดเที่ยวไทยที่ชีวิตนี้ต้องไปเยือนสักครั้ง ครบทุกบรรยากาศทั้งวัด ทะเล และภูเขา</p>
-            <div class="w-20 h-1 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+    <main class="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10 bg-white p-4 rounded-xl shadow-xs">
+            <h2 class="text-xl font-bold text-gray-900">📍 สถานที่ท่องเที่ยวทั้งหมด</h2>
+            <button onclick="openModal()" class="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-sm flex items-center justify-center gap-2 text-sm">
+                ➕ เพิ่มสถานที่ใหม่
+            </button>
         </div>
 
-        <!-- Grid การจัดวางรูปภาพ (Responsive) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- สถานที่ 1: วัดพระแก้ว -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1590004953392-5aba2e72269a?auto=format&fit=crop&w=800&q=80" alt="วัดพระศรีรัตนศาสดาราม" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-sky-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">กรุงเทพมหานคร</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">วัดพระศรีรัตนศาสดาราม (วัดพระแก้ว)</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">วัดคู่บ้านคู่เมืองอันทรงคุณค่า โดดเด่นด้วยสถาปัตยกรรมไทยชั้นสูง ประดิษฐานพระพุทธมหามณีรัตนปฏิมากร (พระแก้วมรกต) ใจกลางเกาะรัตนโกสินทร์</p>
-                    </div>
-                </div>
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
-
-            <!-- สถานที่ 2: ดอยอินทนนท์ -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1528181304800-2f1258bb9f35?auto=format&fit=crop&w=800&q=80" alt="อุทยานแห่งชาติดอยอินทนนท์" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">เชียงใหม่</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">อุทยานแห่งชาติดอยอินทนนท์</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">ยอดเขาที่สูงที่สุดในประเทศไทย จุดเช็กอินรับลมหนาว ท่ามกลางทะเลหมอกสีขาวโพลน ป่าสน และพรรณไม้เมืองหนาวที่สมบูรณ์และสวยงามตลอดทั้งปี</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- สถานที่ 3: เกาะพีพี -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=800&q=80" alt="หมู่เกาะพีพี" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">กระบี่</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">หมู่เกาะพีพี (เกาะพีพีดอน-พีพีเล)</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">มรกตแห่งอันดามันที่โด่งดังไปทั่วโลก น้ำทะเลสีเขียวมรกตใสแจ๋ว โอบล้อมด้วยภูเขาหินปูนสูงชัน มีอ่าวมาหยาและอ่าวปิเละลากูนเป็นไฮไลท์ยอดนิยม</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- สถานที่ 4: ย่านเมืองเก่าภูเก็ต -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=800&q=80" alt="ย่านเมืองเก่าภูเก็ต" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">ภูเก็ต</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">ย่านเมืองเก่าภูเก็ต (Phuket Old Town)</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">เดินชิลชมอาคารตึกแถวโบราณสไตล์ชิโน-โปรตุกีส (Sino-Portuguese) สีสันสดใส แหล่งรวมสตรีทอาร์ท ร้านอาหารท้องถิ่นรสเลิศ และคาเฟ่สุดชิค</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- สถานที่ 5: วัดไชยวัฒนาราม -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1627581534032-475a30642f6f?auto=format&fit=crop&w=800&q=80" alt="วัดไชยวัฒนาราม" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-rose-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">พระนครศรีอยุธยา</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">วัดไชยวัฒนาราม</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">โบราณสถานเก่าแก่ริมแม่น้ำเจ้าพระยา สร้างขึ้นในสมัยกรุงศรีอยุธยาตอนปลาย มีสถาปัตยกรรมการจำลองเขาพระสุเมรุที่งดงามตระการตา ยิ่งใหญ่ในยามพระอาทิตย์ตกดิน</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- สถานที่ 6: สามพันโบก -->
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col group">
-                <div class="h-64 overflow-hidden relative bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=800&q=80" alt="สามพันโบก" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-teal-600 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-sm">อุบลราชธานี</span>
-                </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">สามพันโบก (แกรนด์แคนยอนเมืองไทย)</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">แก่งหินขนาดใหญ่ใต้ลำน้ำโขง ที่ถูกกระแสน้ำกัดเซาะจนกลายเป็นแอ่งและหลุมรูปร่างแปลกตามากกว่า 3,000 แอ่ง จะปรากฏความงดงามอัศจรรย์ให้เห็นในช่วงฤดูน้ำลด</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </main>
 
-    <!-- ส่วนท้ายเว็บไซต์ (Footer) -->
-    <footer class="bg-gray-900 text-gray-400 text-center py-10 border-t border-gray-800">
-        <p class="text-sm font-light mb-2">&copy; 2026 Thailand Travel Gallery. All rights reserved.</p>
-        <p class="text-xs text-gray-600">Created with HTML, Tailwind CSS & Beautiful Free Photography</p>
-    </footer>
-
-</body>
-</html>
+    <div id="place-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl relative animate-fade-in">
+            <h3 id="modal-title" class="text-xl font-bold text-gray-900 mb-4">เพิ่มสถานที่ท่องเที่ยวใหม่</h3>
+            
+            <input type="hidden" id="edit-index">
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ชื่อสถานที่</label>
+                    <input type="text" id="input-name" placeholder="เช่น วัดพระแก้ว, เก
