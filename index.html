@@ -40,4 +40,178 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ชื่อสถานที่</label>
-                    <input type="text" id="input-name" placeholder="เช่น วัดพระแก้ว, เก
+                    <input type="text" id="input-name" placeholder="เช่น วัดพระแก้ว, เกาะพีพี" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">จังหวัด</label>
+                        <input type="text" id="input-province" placeholder="เช่น กรุงเทพฯ" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ภูมิภาค</label>
+                        <select id="input-region" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                            <option value="ภาคเหนือ">ภาคเหนือ</option>
+                            <option value="ภาคกลาง">ภาคกลาง</option>
+                            <option value="ภาคใต้">ภาคใต้</option>
+                            <option value="ภาคอีสาน">ภาคอีสาน</option>
+                            <option value="ภาคตะวันออก">ภาคตะวันออก</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ลิงก์รูปภาพ (URL)</label>
+                    <input type="text" id="input-img" placeholder="วางลิงก์รูปภาพที่ลงท้ายด้วย .jpg หรือ .png" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">คำอธิบายย่อ</label>
+                    <textarea id="input-desc" rows="3" placeholder="เขียนคำอธิบายสั้นๆ เกี่ยวกับสถานที่นี้..." class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none"></textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-6">
+                <button onclick="closeModal()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-medium transition">ยกเลิก</button>
+                <button onclick="savePlace()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition">บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 border-t border-gray-800">
+        <p class="text-xs">&copy; 2026 Thailand Travel Gallery. ข้อมูลบันทึกอัตโนมัติในเครื่องของคุณ</p>
+    </footer>
+
+    <script>
+        // ข้อมูลเริ่มต้นสำหรับแสดงผลครั้งแรก
+        const defaultPlaces = [
+            {
+                name: "วัดพระศรีรัตนศาสดาราม (วัดพระแก้ว)",
+                province: "กรุงเทพมหานคร",
+                region: "ภาคกลาง",
+                img: "https://images.unsplash.com/photo-1590004953392-5aba2e72269a?auto=format&fit=crop&w=800&q=80",
+                desc: "วัดคู่บ้านคู่เมืองอันทรงคุณค่า โดดเด่นด้วยสถาปัตยกรรมไทยชั้นสูง ประดิษฐานพระแก้วมรกตใจกลางเกาะรัตนโกสินทร์"
+            },
+            {
+                name: "อุทยานแห่งชาติดอยอินทนนท์",
+                province: "เชียงใหม่",
+                region: "ภาคเหนือ",
+                img: "https://images.unsplash.com/photo-1528181304800-2f1258bb9f35?auto=format&fit=crop&w=800&q=80",
+                desc: "ยอดเขาที่สูงที่สุดในประเทศไทย จุดเช็กอินรับลมหนาว ท่ามกลางทะเลหมอกสีขาวโพลน ป่าสน และพรรณไม้เมืองหนาว"
+            },
+            {
+                name: "หมู่เกาะพีพี",
+                province: "กระบี่",
+                region: "ภาคใต้",
+                img: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=800&q=80",
+                desc: "มรกตแห่งอันดามันที่โด่งดังไปทั่วโลก น้ำทะเลสีเขียวมรกตใสแจ๋ว โอบล้อมด้วยภูเขาหินปูนและหาดทรายขาวละเอียด"
+            }
+        ];
+
+        // โหลดข้อมูลจาก LocalStorage ถ้าไม่มีให้ใช้ค่าเริ่มต้น
+        let places = JSON.parse(localStorage.getItem('travel_places')) || defaultPlaces;
+
+        // ฟังก์ชันแสดงการ์ดทั้งหมด
+        function renderPlaces() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            places.forEach((place, index) => {
+                const card = `
+                    <div class="bg-white rounded-2xl shadow-xs hover:shadow-lg transition duration-300 overflow-hidden border border-gray-100 flex flex-col group relative">
+                        <div class="h-56 overflow-hidden relative bg-gray-200">
+                            <img src="${place.img}" alt="${place.name}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1590004953392-5aba2e72269a?auto=format&fit=crop&w=400&q=80';">
+                            <span class="absolute top-3 left-3 bg-black/60 text-white text-xs px-2.5 py-1 rounded-md backdrop-blur-xs">${place.region}</span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div class="mb-4">
+                                <h3 class="text-lg font-bold text-gray-900 mb-1">${place.name}</h3>
+                                <p class="text-blue-600 text-xs font-medium mb-2">📍 จ. ${place.province}</p>
+                                <p class="text-gray-600 text-xs leading-relaxed">${place.desc}</p>
+                            </div>
+                            <div class="flex gap-2 border-t border-gray-100 pt-3">
+                                <button onclick="editPlace(${index})" class="flex-1 py-1.5 bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 rounded-md text-xs font-medium transition">✏️ แก้ไข</button>
+                                <button onclick="deletePlace(${index})" class="py-1.5 px-3 bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-600 rounded-md text-xs transition">🗑️ ลบ</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+            // บันทึกลงในเครื่องทุกครั้งที่แสดงผลใหม่
+            localStorage.setItem('travel_places', JSON.stringify(places));
+        }
+
+        // เปิดหน้าต่างเพิ่ม/แก้ไขสถานที่
+        function openModal() {
+            document.getElementById('place-modal').classList.remove('hidden');
+            document.getElementById('modal-title').innerText = "เพิ่มสถานที่ท่องเที่ยวใหม่";
+            document.getElementById('edit-index').value = "-1";
+            clearInputs();
+        }
+
+        // ปิดหน้าต่าง
+        function closeModal() {
+            document.getElementById('place-modal').classList.add('hidden');
+        }
+
+        // ล้างข้อมูลในกล่องกรอก
+        function clearInputs() {
+            document.getElementById('input-name').value = '';
+            document.getElementById('input-province').value = '';
+            document.getElementById('input-img').value = '';
+            document.getElementById('input-desc').value = '';
+        }
+
+        // บันทึกข้อมูล (ทั้งเพิ่มใหม่และแก้ไข)
+        function savePlace() {
+            const index = parseInt(document.getElementById('edit-index').value);
+            const name = document.getElementById('input-name').value.trim();
+            const province = document.getElementById('input-province').value.trim();
+            const region = document.getElementById('input-region').value;
+            const img = document.getElementById('input-img').value.trim();
+            const desc = document.getElementById('input-desc').value.trim();
+
+            if (!name || !province || !img) {
+                alert("กรุณากรอกข้อมูล ชื่อสถานที่, จังหวัด และลิงก์รูปภาพ ให้ครบถ้วนครับ");
+                return;
+            }
+
+            const newPlace = { name, province, region, img, desc };
+
+            if (index === -1) {
+                // เพิ่มอันใหม่
+                places.push(newPlace);
+            } else {
+                // แก้ไขอันเดิม
+                places[index] = newPlace;
+            }
+
+            renderPlaces();
+            closeModal();
+        }
+
+        // โหลดข้อมูลใส่กล่องข้อความเพื่อทำการแก้ไข
+        function editPlace(index) {
+            const place = places[index];
+            document.getElementById('place-modal').classList.remove('hidden');
+            document.getElementById('modal-title').innerText = "แก้ไขข้อมูลสถานที่";
+            document.getElementById('edit-index').value = index;
+            
+            document.getElementById('input-name').value = place.name;
+            document.getElementById('input-province').value = place.province;
+            document.getElementById('input-region').value = place.region;
+            document.getElementById('input-img').value = place.img;
+            document.getElementById('input-desc').value = place.desc;
+        }
+
+        // ลบสถานที่ท่องเที่ยว
+        function deletePlace(index) {
+            if (confirm(`คุณต้องการลบสถานที่ "${places[index].name}" ใช่หรือไม่?`)) {
+                places.splice(index, 1);
+                renderPlaces();
+            }
+        }
+
+        // สั่งให้ระบบทำงานครั้งแรกเมื่อเปิดหน้าเว็บ
+        renderPlaces();
+    </script>
+</body>
+</html>
